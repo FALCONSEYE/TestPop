@@ -21,7 +21,7 @@
 	</div>
 
 	<div data-role="content">	
-	<form>
+	<form data-ajax="false">
 		<input type="text" name="userName" id="userName" value="" placeholder="User ID">
 		<br/>
 		<input type="password" name="userPassword" id="userPassword" value="" placeholder="Password" autocomplete="off">
@@ -40,11 +40,17 @@
 </div>
 
 <script>
-	$("#btnLogin").click(function() {
-		$.mobile.changePage("test2.html", {transition:"flip"});
-	});
+var pathToCF = "http://dev.subaruadfund.com/secure/coop/popTest/response.cfm";
+
+$(function () {
+    $('form').bind('submit', function (event) {
+        event.preventDefault();
+        $.post(pathToCF, $(this).serialize(), function (data) {
+            alert('Server Response: ' + data);
+        });
+    });
+});
 /*
-var localHost = "http://10.201.105.35:8500/pgTest1/artservice.cfc";
 $("#indexPage").live("pageinit", function() {
 	console.log("Getting remote list");
 	$.mobile.showPageLoadingMsg();
