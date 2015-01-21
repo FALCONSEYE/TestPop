@@ -21,5 +21,5 @@ writeDump(apiResponse);
 ws = CreateObject("webservice", "http://dev.subaruadfund.com/cfcs/subaruPOP.cfc?wsdl"); 
 qry = ws.getUser( userName="010101e",
 				  password=" " ); 
-writeDump(qry);
+writeOutPut(serializeJSON(qry));
 </cfscript>
