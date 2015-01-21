@@ -1,0 +1,86 @@
+<!DOCTYPE html> 
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Subaru POP</title> 
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.min" />
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/main.js"></script>
+</head> 
+
+<body onload="init()"> 
+
+<div data-role="page" id="indexPage">
+
+	<div data-role="header">
+		<h1>Subaru Logo</h1>
+	</div>
+
+	<div data-role="content">	
+	<form>
+		<input type="text" name="userName" id="userName" value="" placeholder="User ID">
+		<br/>
+		<input type="password" name="userPassword" id="userPassword" value="" placeholder="Password" autocomplete="off">
+		<br/>
+		<button id="btnLogin" class="ui-shadow ui-btn ui-corner-all" data-theme="d">Login</button>
+		<p>
+		Keep me logged in? <input type="checkbox" name="keepLoggedIn" id="keepLoggedIn" data-role="flipswitch"  data-theme="d"/>
+		</p>
+		<p align="center">
+		To set up an account or for help with login please call the support center at 1-866-717-2300	
+		</p>
+	</form>	
+	</div>
+
+
+</div>
+
+<script>
+	$("#btnLogin").click(function() {
+		$.mobile.changePage("test2.html", {transition:"flip"});
+	});
+/*
+var localHost = "http://10.201.105.35:8500/pgTest1/artservice.cfc";
+$("#indexPage").live("pageinit", function() {
+	console.log("Getting remote list");
+	$.mobile.showPageLoadingMsg();
+	$.get(localHost+"?method=getArtList&returnformat=json", {}, function(res) {
+		$.mobile.hidePageLoadingMsg();
+		var s = "";
+		for(var i=0; i<res.length; i++) {
+			s+= "<li><a href='detail.html?id=" + res[i].id + "'>" + res[i].name + "</a></li>";
+		}
+		$("#artList").html(s);
+		$("#artList").listview("refresh");
+	},"json");
+
+});
+
+$("#detailPage").live("pageshow", function() {
+	var page = $(this);
+	var query = page.data("url").split("?")[1];
+	var id = query.split("=")[1];
+	console.log("Getting remote detail for "+id);
+	$.mobile.showPageLoadingMsg();
+	$.get(localHost+"?method=getArt&returnformat=json", {id:id}, function(res) {
+		$.mobile.hidePageLoadingMsg();
+		$("h1",page).text("Art: " + res.name);
+		var s = "<p>" + res.description + "</p>";
+			s += "<p>Price: "+res.price + "<br/>";
+			s += "Sold: ";
+			if(res.sold == 1) s += "Yes</p>";
+			else s+= "No</p>";			
+
+			s+= "<p><img src='" + res.image + "'></p>";
+			$("#detailContent").html(s);
+	},"json");
+	
+});
+*/
+</script>
+</body>
+</html>
