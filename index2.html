@@ -1,0 +1,96 @@
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <div data-role="page" id="login" data-theme="a">
+        <div data-role="header" > <!-- data-theme="a" -->
+            <h3>Company Logo</h3>
+        </div>
+ 
+        <div data-role="content">
+            <form name="loginForm" id="loginForm" class="ui-body ui-body-a ui-corner-all" data-ajax="false">
+                <fieldset>
+                    <div data-role="fieldcontain">
+                        <input type="text" name="userName" id="userName" value="" placeholder="User ID"/>
+                    </div>                                 
+                    <div data-role="fieldcontain">                                     
+                        <input type="password" name="userPassword" id="userPassword" value="" placeholder="Password" autocomplete="off"/>
+                    </div>
+                    <input type="button" name="submit" id="submit" value="Login" data-theme="d" />
+                    <p>
+                    Keep me logged in? <input type="checkbox" name="keepLoggedIn" id="keepLoggedIn" data-role="flipswitch"  data-theme="d"/>
+                    </p>
+                </fieldset>
+            </form>                             
+        </div>
+ 
+        <div data-theme="a" data-role="footer" data-position="fixed">
+ 
+        </div>
+    </div>
+    
+    <div data-role="page" id="second">
+        <div data-role="header">
+            <h3>Company Logo</h3>
+        </div>
+ 
+        <div data-role="content">
+            Upload Photos
+        </div>
+ 
+        <div data-theme="a" data-role="footer" data-position="fixed">
+            <h3>Page footer</h3>
+        </div>
+    </div>
+    <script>
+	
+	$(document).on('pageinit', '#login', function(){ 
+
+	$(document).on('click', '#submit', function() { 
+
+		if($('#userName').val().length > 0 && $('#userPassword').val().length > 0) {
+			// Send data to server through the Ajax call
+			// action is functionality we want to call and outputJSON is our data
+			$.ajax({
+				url: "second.cfm",
+				data: { action : 'getUser', 
+						formData : $('#loginForm').serialize() 
+				},
+				type: 'post',                  
+				async: 'true',
+				dataType: 'jsonp',
+				contentType: "application/json",
+				beforeSend: function() {
+					// This callback function will trigger before data is sent
+					$.mobile.loading("show"); // This will show ajax spinner
+				},
+				complete: function() {
+					// This callback function will trigger on data sent/received complete
+					 $.mobile.loading("hide"); // This will hide ajax spinner
+				},
+				success: function (result) {
+					if(result.SUCCESS) {
+						$("#second").pagecontainer("change");           
+					} else {
+						alert('Logon unsuccessful!');
+					}
+				},
+				error: function(xhr,ajaxOptions,thrownError) {
+					alert('Network error has occurred please try again!');
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});                  
+		} else {
+			alert('Please fill User ID and Password!');
+		}  
+		        
+		return false; // cancel original event to prevent form submitting
+		
+	});   
+	
+});
+</script>
+</body>
+</html>

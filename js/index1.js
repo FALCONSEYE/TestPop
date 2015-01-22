@@ -23,25 +23,18 @@ $(document).on('pageinit', '#login', function(){
 					 $.mobile.loading("hide"); // This will hide ajax spinner
 				},
 				success: function (result) {
-					alert("here");
-					if(result.SUCCESS == "true") {
+					if(result.SUCCESS) {
 						// $.mobile.changePage("#second");
 						$("#second").pagecontainer("change");                        
 					} else {
 						alert('Logon unsuccessful!');
 					}
 				},
-				error: function (request,error) {
-					// This callback function will trigger on unsuccessful action               
-					alert(error);
-					alert('Network error has occurred please try again!');
-				}
-				
-				/*error: function(xhr,ajaxOptions,thrownError) {
+				error: function(xhr,ajaxOptions,thrownError) {
 					alert('Network error has occurred please try again!');
 					alert(xhr.status);
 					alert(thrownError);
-				}*/
+				}
 			});                  
 		} else {
 			alert('Please fill User ID and Password!');
